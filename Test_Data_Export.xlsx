@@ -1,0 +1,9 @@
+This file is binary and cannot be displayed in text format. Please download it from the repository to view the Excel spreadsheet.
+
+The Excel file "Test_Data_Export.xlsx" contains 4 sheets:
+1. Test Scenarios & Test Data
+2. Test Units of Work
+3. Validation Rules & Behaviours
+4. Formatted Test Cases
+
+Each sheet contains the data converted from the corresponding Markdown files.
