@@ -1,0 +1,7 @@
+ID,Name,Description,Actor(s),Dependencies,Functional Area
+UW-001,Avvio Job Manuale Una Tantum,Avvia l'elaborazione batch manuale per la generazione della bolla DEFAGE 6.,"Operatore di esercizio, System",None,Selezione Eleggibilità
+UW-002,Filtraggio Partite Candidabili,Applica i criteri su EITCARR, EITRUTR ed EITCATR per individuare ammissibili.,System,UW-001,Selezione Eleggibilità
+UW-003,Riesame Attributi di Selezione,Riesegue la verifica degli attributi sul flusso selezionato.,System,UW-002,Verifica Residuo e Gestione Scarti
+UW-004,Verifica Carico Residuo e Ammissibilità,Verifica residuo; condono/discarico e maggior rateazione per ammissibilità.,System,UW-003,Verifica Residuo e Gestione Scarti
+UW-005,Produzione File Scarti CSV,Genera il CSV degli scarti con i campi previsti solo per record non ammissibili.,System,UW-004,Verifica Residuo e Gestione Scarti
+UW-006,Caricamento e Sovrascrittura EITDA6R,Carica in EITDA6R le partite ammissibili e sovrascrive in caso di rilancio.,System,UW-004,Persistenza Bolla
