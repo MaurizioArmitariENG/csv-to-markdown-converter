@@ -1,0 +1,21 @@
+TC ID,Scenario Description,Test Type,Input Data,Expected Result
+UW-001-TC-001,Avvio manuale con operatore autorizzato,Happy Path,"UserID: OP_SET_01, Profilo: BATCH_DEFAGE_EXEC, Campagna: DEFAGE6-2026",Job avviato con stato STARTED e run-id univoco
+UW-001-TC-002,Avvio manuale con operatore non autorizzato,Negative,"UserID: USR_VIEW_99, Profilo: READ_ONLY, Campagna: DEFAGE6-2026",Avvio rifiutato con errore autorizzativo
+UW-001-TC-003,Rilancio manuale su campagna già eseguita,State,"UserID: OP_SET_01, Profilo: BATCH_DEFAGE_EXEC, Campagna: DEFAGE6-2026",Nuova run consentita con run-id distinto
+UW-002-TC-001,Partita con criteri eleggibilità validi,Happy Path,"SDAGE6=6; SANNCOO=0; STIPCAR=1; SRIS=1; SDAGE5=6; SDEFSCO=S; SROTT=0; SCMBGES=0; SDEFRIS=0; SART12=1",Record selezionato nel flusso candidati
+UW-002-TC-002,Esclusione per tipo cartella non ammesso,Boundary,"SDAGE6=6; STIPCAR=5; altri campi validi",Record escluso dal flusso candidati
+UW-002-TC-003,Esclusione per stato riscosso non ammesso,Negative,"SDAGE6=6; SRIS=9; altri campi validi",Record escluso dal flusso candidati
+UW-002-TC-004,Mix valori rottamazione con almeno un ammesso,Equivalence,"Partita con 3 tributi: SROTT={1,2,0}; altri criteri validi",Partita mantenuta candidabile
+UW-003-TC-001,Riesame coerente con filtro iniziale,Happy Path,Record invariato con attributi validi,Record confermato per verifica residuo
+UW-003-TC-002,Riesame con attributo diventato non conforme,State,Record con SANNCOO=1 prima del riesame,Record rimosso dai candidati e inviato a scarto
+UW-003-TC-003,Riesame con campo obbligatorio mancante,Negative,Record senza SDAGE5,Record non confermato e instradato a scarto
+UW-004-TC-001,Carico residuo positivo e nessun condono,Happy Path,"ImpostaResidua=1200.50; Interessi=40.00; Aggio=15.00; Mora=0.00; Spese=12.00; Discarico=NO",Record ammissibile per caricamento EITDA6R
+UW-004-TC-002,Carico residuo uguale a zero,Boundary,"ImpostaResidua=0.00; Interessi=0.00; Aggio=0.00; Mora=0.00; Spese=0.00; Discarico=NO",Record non ammissibile e inviato a scarto
+UW-004-TC-003,Maggior rateazione con importi accessori presenti,State,"ImpostaResidua=300.00; MaggiorRateazione=SI; ImportiAccessoriPresenti=SI; Discarico=NO",Record valido per rientro in bolla
+UW-004-TC-004,Debito condonato/discaricato,Negative,"ImpostaResidua=900.00; Discarico=SI",Record escluso anche con residuo positivo
+UW-005-TC-001,Presenza scarti da esportare,Happy Path,25 record scartati con campi previsti,CSV generato con 25 righe e intestazioni conformi
+UW-005-TC-002,Nessuno scarto rilevato,State,0 record scartati,Nessun file CSV prodotto
+UW-005-TC-003,Scarto con campo obbligatorio non valorizzabile,Negative,1 record scarto con CARR-NCAR nullo,Errore tracciato; record non esportato
+UW-006-TC-001,Caricamento iniziale record ammissibili,Happy Path,10.000 record ammissibili conformi EITDA6R,EITDA6R popolata con 10.000 record
+UW-006-TC-002,Rilancio con sovrascrittura su stessa campagna,State,"Run1: 10.000; Run2: 9.850",EITDA6R contiene solo i 9.850 record dell'ultimo run
+UW-006-TC-003,Nessun record ammissibile dopo verifiche,Edge,0 record ammissibili,EITDA6R allineata a dataset vuoto della campagna
